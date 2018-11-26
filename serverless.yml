@@ -57,39 +57,6 @@ resources:
         Topics:
           - Ref: snsTest
 
-    SNSSubscriptionTest:
-      Type: AWS::SNS::Subscription
-      DependsOn:
-        - snsTest
-        - sqsTest
-      Properties:
-        Protocol: sqs
-        RawMessageDelivery: true
-        Endpoint:
-          {
-            'Fn::Join':
-              [
-                '',
-                [
-                  'arn:aws:sqs:${self:provider.region}:',
-                  { 'Ref': 'AWS::AccountId' },
-                  ':${self:resources.Resources.sqsTest.Properties.QueueName}',
-                ],
-              ],
-          }
-        TopicArn:
-          {
-            'Fn::Join':
-              [
-                '',
-                [
-                  'arn:aws:sns:${self:provider.region}:',
-                  { 'Ref': 'AWS::AccountId' },
-                  ':${self:resources.Resources.snsTest.Properties.TopicName}',
-                ],
-              ],
-          }
-
     #
     # SQS
     #
@@ -156,11 +123,10 @@ functions:
     environment:
       ENV: ${self:provider.stage}
     events:
-      - sqs:
+      - sns:
           arn:
-            Fn::GetAtt:
-              - sqsTest
-              - Arn
+            Ref: snsTest
+          topicName: CHUNFENG-TEST-${self:provider.stage}
 
 plugins:
   - serverless-pseudo-parameters
