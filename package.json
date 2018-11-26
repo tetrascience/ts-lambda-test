@@ -1,0 +1,17 @@
+{
+  "name": "ts-lambda-test",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "aws-sdk": "^2.362.0",
+    "bluebird": "^3.5.3",
+    "commander": "^2.19.0",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "serverless-pseudo-parameters": "^2.2.0"
+  },
+  "scripts": {
+    "test": "node -v"
+  }
+}
