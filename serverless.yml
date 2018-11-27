@@ -134,7 +134,7 @@ functions:
       - sns:
           arn:
             Ref: snsTest
-          topicName: CHUNFENG-TEST-${self:provider.stage}
+          topicName: ${self:resources.Resources.snsTest.Properties.TopicName}
     onError:
       Ref: snsTestDLQ
 
